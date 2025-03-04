@@ -37,7 +37,6 @@ if option == "Detection (Classification)":
     st.header("🔍 Classification Model")
     
     # Load Example Dataset
-    @st.cache_data
     def load_classification_data():
         from sklearn.datasets import load_iris, load_wine, load_digits
         dataset_choice = st.sidebar.selectbox("Choose Dataset:", ["Iris", "Wine", "Digits"])
@@ -114,8 +113,7 @@ elif option == "Forecasting (Time Series)":
     st.header("📈 Time Series Forecasting")
     
     # Load Example Time Series Data
-    @st.cache_data
-    def load_forecasting_data():
+    def load_forecasting_data()
         dates = pd.date_range(start="2022-01-01", periods=50, freq='D')
         values = np.cumsum(np.random.randn(50) * 10)
         df = pd.DataFrame({'Date': dates, 'Value': values})
