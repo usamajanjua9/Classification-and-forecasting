@@ -113,7 +113,7 @@ elif option == "Forecasting (Time Series)":
     st.header("📈 Time Series Forecasting")
     
     # Load Example Time Series Data
-    def load_forecasting_data()
+    def load_forecasting_data():
         dates = pd.date_range(start="2022-01-01", periods=50, freq='D')
         values = np.cumsum(np.random.randn(50) * 10)
         df = pd.DataFrame({'Date': dates, 'Value': values})
