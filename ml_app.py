@@ -14,19 +14,15 @@ warnings.filterwarnings("ignore")
 
 # Customizing Streamlit UI
 st.set_page_config(page_title="ML Detection & Forecasting App", page_icon="📊", layout="wide")
-st.markdown(
-    """
+
+st.markdown("""
     <style>
-    footer {visibility: hidden;}
-    .css-1rs6os {visibility: hidden;}
-    .reportview-container {background-color: #f5f5f5;}
-    .sidebar .sidebar-content {background-color: #263238; color: white;}
-    .stButton>button {background-color: #4CAF50; color: white; border-radius: 5px;}
-    .stTextInput>div>div>input {border-radius: 5px;}
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
+
 
 # Title and Sidebar
 st.title("📊 ML Model: Detection & Forecasting")
