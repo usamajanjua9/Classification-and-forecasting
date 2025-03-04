@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier, SVC
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
+from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve, auc
 import seaborn as sns
 from statsmodels.tsa.arima.model import ARIMA
@@ -35,6 +36,7 @@ option = st.sidebar.radio("Select Task:", ("Detection (Classification)", "Foreca
 if option == "Detection (Classification)":
     st.header("🔍 Classification Model")
     
+    # Load Example Dataset
     @st.cache_data
     def load_classification_data():
         from sklearn.datasets import load_iris, load_wine, load_digits
@@ -53,10 +55,12 @@ if option == "Detection (Classification)":
     st.subheader("📌 Example Dataset")
     st.dataframe(df.head())
     
+    # Splitting Data
     X = df.drop(columns=['target'])
     y = df['target']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
+    # Model Selection
     model_choice = st.sidebar.selectbox("🛠 Choose Model:", ["Random Forest", "Gradient Boosting", "AdaBoost", "Support Vector Machine"])
     
     if model_choice == "Random Forest":
@@ -72,6 +76,7 @@ if option == "Detection (Classification)":
     y_pred = model.predict(X_test)
     y_proba = model.predict_proba(X_test) if hasattr(model, 'predict_proba') else None
     
+    # Display Metrics
     accuracy = accuracy_score(y_test, y_pred)
     st.subheader("📊 Model Performance")
     st.write(f"**✔ Accuracy:** {round(accuracy * 100, 2)} %")
@@ -79,11 +84,13 @@ if option == "Detection (Classification)":
     st.subheader("📜 Classification Report")
     st.text(classification_report(y_test, y_pred))
     
+    # Confusion Matrix
     st.subheader("🗂 Confusion Matrix")
     fig, ax = plt.subplots()
     sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, cmap="Blues", fmt="d", ax=ax)
     st.pyplot(fig)
     
+    # ROC Curve
     if y_proba is not None:
         st.subheader("📈 ROC Curve")
         fig, ax = plt.subplots()
@@ -96,6 +103,7 @@ if option == "Detection (Classification)":
         ax.legend()
         st.pyplot(fig)
     
+    # User Prediction
     st.subheader("📝 Predict New Data")
     user_input = [st.number_input(col, value=0.0) for col in X.columns]
     if st.button("Predict"):
@@ -105,6 +113,7 @@ if option == "Detection (Classification)":
 elif option == "Forecasting (Time Series)":
     st.header("📈 Time Series Forecasting")
     
+    # Load Example Time Series Data
     @st.cache_data
     def load_forecasting_data():
         dates = pd.date_range(start="2022-01-01", periods=50, freq='D')
@@ -116,6 +125,7 @@ elif option == "Forecasting (Time Series)":
     st.subheader("📌 Example Dataset")
     st.line_chart(df.set_index("Date"))
     
+    # Model Selection
     forecast_model = st.sidebar.selectbox("🛠 Select Forecasting Model:", ["ARIMA", "Exponential Smoothing"])
     
     if forecast_model == "ARIMA":
@@ -126,6 +136,7 @@ elif option == "Forecasting (Time Series)":
     model_fit = model.fit()
     forecast = model_fit.forecast(steps=10)
     
+    # Display Forecast
     st.subheader("📊 Forecasted Values")
     future_dates = pd.date_range(start=df['Date'].iloc[-1] + pd.Timedelta(days=1), periods=10, freq='D')
     forecast_df = pd.DataFrame({'Date': future_dates, 'Forecast': forecast})
