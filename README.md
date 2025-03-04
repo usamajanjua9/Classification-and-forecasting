@@ -2,6 +2,8 @@
 
 This Streamlit application provides an interactive interface for performing **classification (detection)** and **time series forecasting** using various machine learning models. Users can upload datasets, choose models, visualize results, and make predictions.
 
+[Run](https://classification-and-forecasting-egrpoafdknpwx5ga5nmm2y.streamlit.app/)!
+
 ## Features
 
 ### 🔍 Classification (Detection)
@@ -43,5 +45,5 @@ streamlit run streamlit_ml_app.py
 ```
 
 ## Developed By
-🚀 **Dr. Usama Arshad**
+🚀 **Dr. Usama Arshad** (https://www.linkedin.com/in/usamajanjua9/)!**
 
